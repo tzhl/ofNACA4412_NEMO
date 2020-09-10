@@ -1,0 +1,122 @@
+
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  dev
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+geometry
+{
+    box
+    {
+        type searchableBox;
+        min (-3 0 -5);
+        max (5 5 5);
+    }
+}
+
+
+
+vertices
+(
+    (-3 0 -5)
+    (-3 5 -5)
+    (-3 5 5)
+    (-3 0 5)
+    (5 0 -5)
+    (5 5 -5)
+    (5 5 5)
+    (5 0 5)
+);
+
+blocks
+    (
+        
+        hex (0 1 2 3 4 5 6 7) (125 240 130) //cause grading in (y z x) direction
+
+        simpleGrading
+        (
+            (
+              //grade in y direction
+              (0.5	0.822368421	1.0)
+              (0.5	0.177631579	10.8)
+
+            )
+            (
+              //grade in z direction
+              (0.45232	0.183333333	0.01509113)
+              (0.04928	0.320833333	1)
+              (0.04800	0.3125	1)
+              (0.45040	0.183333333	66.26407608)
+
+            )
+            (
+              //grade in x direction
+              (0.32875	0.184615385	0.10152560)
+              (0.07125	0.153846154	1)
+              (0.18881	0.407692308	1)
+              (0.41119	0.253846154	11.91817654)
+ 
+            )
+            
+            
+        )
+    );
+
+edges
+(
+);
+
+faces
+(
+);
+
+boundary
+(
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 1 2 3)
+        );
+    }
+    
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (1 5 6 2)
+            (4 5 6 7)
+            (3 7 6 2)
+            (0 4 5 1)
+        );
+    }
+    symmetryPlane1
+    {
+        type symmetryPlane;
+        faces
+        (
+            (0 3 7 4)
+        );
+    }
+
+);
+
+// ************************************************************************* //
+
+
+
+
